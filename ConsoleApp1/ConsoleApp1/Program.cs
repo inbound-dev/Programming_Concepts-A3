@@ -62,14 +62,33 @@ namespace A3LKJHP1
 {
     internal class Program
     {
-        static void 
         static void Main(string[] args)
         {
             Console.WriteLine("Please Choose From The Following Options");
 
+            Console.WriteLine("Option 1: display the following 20 numbers in the sequence, and show odd numbers *4 and even *3");
 
 
             Console.ReadKey();
+        }
+
+        public static int[] Write20Numbers()
+        {
+            int i = 0;
+            return i;
+        }
+
+        public static void Option1()
+        {
+
+        }
+        public static void Option2()
+        {
+
+        }
+        public static void Option3()
+        {
+
         }
     }
 }
