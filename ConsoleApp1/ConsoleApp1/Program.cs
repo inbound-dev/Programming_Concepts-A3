@@ -62,9 +62,14 @@ namespace A3LKJHP1
 {
     internal class Program
     {
+        static void 
         static void Main(string[] args)
         {
-            erveafbaertbwertb
+            Console.WriteLine("Please Choose From The Following Options");
+
+
+
+            Console.ReadKey();
         }
     }
 }
