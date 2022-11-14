@@ -56,6 +56,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,7 +69,7 @@ namespace A3LKJHP1
         {
             bool running = true;
 
-            do
+            while (running)
             {
                 Console.WriteLine("Please Choose From The Following Options");
 
@@ -76,96 +77,141 @@ namespace A3LKJHP1
                 Console.WriteLine("Option 2: Provide a number and divide by 3, loops until you enter 'END'");
                 Console.WriteLine("Option 3: Exit the Program");
 
-                String userChoice = Console.ReadLine();
-                int finalUserChoice = int.Parse(userChoice);
+                try
+                {
+                    String userInput = Console.ReadLine();
+                    int userChoice = int.Parse(userInput);
 
-                if (finalUserChoice == 1)
-                {
-                    Option1();
+                    if (userChoice == 1)
+                    {
+                        Option1();
+                    }
+                    else if (userChoice == 2)
+                    {
+                        Option2();
+                    }
+                    else if (userChoice == 3)
+                    {
+                        Console.WriteLine("Exiting!");
+                        running = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please Try Again!");
+                    }
                 }
-                else if (finalUserChoice == 2)
+                catch (FormatException ex)
                 {
-                    Option2();
+                    Console.WriteLine("That is not the correct input type!");
                 }
-                else if (finalUserChoice == 3)
-                {
-                    Console.WriteLine("Exiting!");
-                    running = false;
-                }
-                else
-                {
-                    Console.WriteLine("Please Try Again!");
-                }
-            }while (running);
+            }
         }
 
-        static int[] Return20Numbers(int userInput)
+        public static int[] Return20Numbers(int userInput)
         {
             int[] numArray = new int[20];
 
-            for (int i = userInput; i <= (userInput + 19); i++)
+            for (int i = 0; i <= 19; i++)
             {
-                numArray[i] += i;
+                numArray[i] = (userInput + i);
             }
-
             return numArray;
         }
 
-            static void Option1()
+        public static void Option1()
+        {
+            int[] numSequnce = new int[20];
+
+            List<int> oddNumbers = new List<int>();
+            List<int> evenNumbers = new List<int>();
+
+            // get user input
+            Console.WriteLine("What number would you like to start with?");
+
+            int input = int.Parse(Console.ReadLine());
+
+
+            // sets numSequence to the return value of Return20Numbers with the user input passed in
+            numSequnce = Return20Numbers(input);
+
+            // Sorts the odd and even numbers and put them into their own arrays
+
+            for (int i = 0; i <= numSequnce.Length - 1; i++)
             {
-                // get user input
-                int input = 0;
-
-                Console.WriteLine("What number would you like to start with?");
-
-                input = int.Parse(Console.ReadLine());
-
-                // takes user input and prints the following 20 numbers in the sequence
-                int[] numSequnce = new int[20];
-
-                int[] oddNumbers = new int[10];
-                int[] evenNumbers = new int[10];
-
-                numSequnce = Return20Numbers(input);
-
-                // multiply the odd numbers by 4 
-
-
-
-                // multiply the even numbers by 3
-
-                Console.WriteLine(numSequnce);
+                if ((numSequnce[i] % 2) == 0)
+                {
+                    evenNumbers.Add(numSequnce[i]);
+                }
+                else
+                {
+                    oddNumbers.Add(numSequnce[i]);
+                }
             }
 
-            static void Option2()
+
+            // multiply the odd numbers by 4 
+            for (int i = 0; i <= (oddNumbers.Count - 1); i++)
             {
-                bool looping = true;
+                oddNumbers[i] = (oddNumbers[i] * 4);
+            }
 
-                while (looping)
+            // multiply the even numbers by 3
+            for (int i = 0; i <= (evenNumbers.Count - 1); i++)
+            {
+                evenNumbers[i] = (evenNumbers[i] * 3);
+
+            }
+
+            // displaying the information in an understandable way
+            Console.WriteLine("The Sequence of Numbers that Resulted From Your Input is:");
+            for (int i = 0; i <= numSequnce.Length - 1; i++)
+            {
+                Console.WriteLine(numSequnce[i]);
+            }
+
+            Console.WriteLine("The Even Number Array is:");
+            for (int i = 0; i <= evenNumbers.Count - 1; i++)
+            {
+                Console.WriteLine(evenNumbers[i]);
+            }
+
+            Console.WriteLine("The Odd Number Array is:");
+
+            for (int i = 0; i <= oddNumbers.Count - 1; i++)
+            {
+                Console.WriteLine(oddNumbers[i]);
+            }
+        }
+
+        public static void Option2()
+        {
+            bool looping = true;
+
+            while (looping)
+            {
+                try
                 {
-                    try
+                    //Get user input
+                    Console.WriteLine("Please Enter The Number You Would like to divide by 3");
+
+                    String userInput = Console.ReadLine();
+
+                    if (userInput == "end" || userInput == "END")
                     {
-                        //Get user input
-                        Console.WriteLine("Please Enter The Number You Would like to divide by 3");
-
-                        String numInput = Console.ReadLine(); 
-
-                        if (numInput == "end" || numInput == "END")
-                        {
-                            looping = false;
-                        }
-                        else
-                        {
-                            int finalOutput = (int.Parse(numInput));
-
-                            Console.WriteLine((finalOutput / 3));
-                        }
+                        looping = false;
                     }
-                    catch
+                    else
                     {
-                        //Console.WriteLine(Exception e);
+                        int finalOutput = (int.Parse(userInput));
+
+                        Console.WriteLine((finalOutput / 3));
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("That is not the correct input /n");
                 }
             }
         }
     }
+}
