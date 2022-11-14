@@ -54,7 +54,9 @@ e. Make sure it is very clear on what the User is to enter.
 */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,31 +66,106 @@ namespace A3LKJHP1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please Choose From The Following Options");
+            bool running = true;
 
-            Console.WriteLine("Option 1: display the following 20 numbers in the sequence, and show odd numbers *4 and even *3");
+            do
+            {
+                Console.WriteLine("Please Choose From The Following Options");
 
+                Console.WriteLine("Option 1: display the following 20 numbers in the sequence, and show odd numbers *4 and even *3");
+                Console.WriteLine("Option 2: Provide a number and divide by 3, loops until you enter 'END'");
+                Console.WriteLine("Option 3: Exit the Program");
 
-            Console.ReadKey();
+                String userChoice = Console.ReadLine();
+                int finalUserChoice = int.Parse(userChoice);
+
+                if (finalUserChoice == 1)
+                {
+                    Option1();
+                }
+                else if (finalUserChoice == 2)
+                {
+                    Option2();
+                }
+                else if (finalUserChoice == 3)
+                {
+                    Console.WriteLine("Exiting!");
+                    running = false;
+                }
+                else
+                {
+                    Console.WriteLine("Please Try Again!");
+                }
+            }while (running);
         }
 
-        public static int[] Write20Numbers()
+        static int[] Return20Numbers(int userInput)
         {
-            int i = 0;
-            return i;
+            int[] numArray = new int[20];
+
+            for (int i = userInput; i <= (userInput + 19); i++)
+            {
+                numArray[i] += i;
+            }
+
+            return numArray;
         }
 
-        public static void Option1()
-        {
+            static void Option1()
+            {
+                // get user input
+                int input = 0;
 
-        }
-        public static void Option2()
-        {
+                Console.WriteLine("What number would you like to start with?");
 
-        }
-        public static void Option3()
-        {
+                input = int.Parse(Console.ReadLine());
 
+                // takes user input and prints the following 20 numbers in the sequence
+                int[] numSequnce = new int[20];
+
+                int[] oddNumbers = new int[10];
+                int[] evenNumbers = new int[10];
+
+                numSequnce = Return20Numbers(input);
+
+                // multiply the odd numbers by 4 
+
+
+
+                // multiply the even numbers by 3
+
+                Console.WriteLine(numSequnce);
+            }
+
+            static void Option2()
+            {
+                bool looping = true;
+
+                while (looping)
+                {
+                    try
+                    {
+                        //Get user input
+                        Console.WriteLine("Please Enter The Number You Would like to divide by 3");
+
+                        String numInput = Console.ReadLine(); 
+
+                        if (numInput == "end" || numInput == "END")
+                        {
+                            looping = false;
+                        }
+                        else
+                        {
+                            int finalOutput = (int.Parse(numInput));
+
+                            Console.WriteLine((finalOutput / 3));
+                        }
+                    }
+                    catch
+                    {
+                        //Console.WriteLine(Exception e);
+                    }
+                }
+            }
         }
     }
-}
